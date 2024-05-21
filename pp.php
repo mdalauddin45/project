@@ -4,15 +4,12 @@ $username = "root";
 $password = "123456";
 $dbname = "autism_test";
 
-// Create connection to MySQL server
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Create the database
 $sql = "CREATE DATABASE IF NOT EXISTS autism_test";
 if ($conn->query($sql) === TRUE) {
     echo "Database created successfully<br>";
@@ -20,10 +17,8 @@ if ($conn->query($sql) === TRUE) {
     echo "Error creating database: " . $conn->error;
 }
 
-// Select the database
 $conn->select_db($dbname);
 
-// Create the table
 $sql = "CREATE TABLE IF NOT EXISTS questions (
     id INT AUTO_INCREMENT PRIMARY KEY,
     question_text VARCHAR(255) NOT NULL,
@@ -38,7 +33,6 @@ if ($conn->query($sql) === TRUE) {
     echo "Error creating table: " . $conn->error;
 }
 
-// Insert sample questions if the table is empty
 $sql = "SELECT COUNT(*) as count FROM questions";
 $result = $conn->query($sql);
 $row = $result->fetch_assoc();
@@ -63,7 +57,6 @@ if ($row['count'] == 0) {
     }
 }
 
-// Fetch questions from the database
 $sql = "SELECT id, question_text FROM questions LIMIT 10";
 $result = $conn->query($sql);
 $questions = [];
